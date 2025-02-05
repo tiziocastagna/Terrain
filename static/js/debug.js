@@ -106,9 +106,9 @@ function drawMap() {
     const imageData = ctx.getImageData(0, 0, mapWidth, mapHeight);
     const pixels = imageData.data;
     let globalIndex = 0;
-    for(let i = 0; i < mapWidth; i++) {
-        for(let j = 0; j < mapHeight; j++) {
-            const tile = getTile(i, j);
+    for(let i = 0; i < mapHeight; i++) {
+        for(let j = 0; j < mapWidth; j++) {
+            const tile = getTile(j, i);
             let color;
             if(showTemperature) {
                 const gray = (tile.temperature + 1) * 255 / 2;
@@ -119,6 +119,8 @@ function drawMap() {
             } else if(showHeight) {
                 const gray = (tile.height + 1) * 255 / 2;
                 color = [gray, gray, gray, 255];
+            } else if(Math.abs(j - playerX) < 5 && Math.abs(i - playerY) < 5) {
+                color = [255, 0, 0, 255];
             } else {
                 const biome = tile.biome;
                 color = biomeToColor(biome);

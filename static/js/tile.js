@@ -136,19 +136,56 @@ class Tall_grass extends Tile {
 }
 
 class Dry_grass extends Tile {
+    variants = 6;
+    variant;
     constructor(x, y, temperature, humidity, height, biome) {
+        // TODO: fix, not the best handling of random trought the project
         super(x, y, temperature, humidity, height, biome);
+        this.variant = Math.floor(Math.random() * this.variants);
     }
     render() {
-        return 'url("./static/images/dry_grass.png")';
+        switch(this.variant) {
+            case 0:
+                return 'url("./static/images/dry_grass.png")';
+            case 1:
+                return 'url("./static/images/dry_grass2.png")';
+            case 2:
+                return 'url("./static/images/dry_grass3.png")';
+            case 3:
+                return 'url("./static/images/dry_grass4.png")';
+            case 4:
+                return 'url("./static/images/dry_grass5.png")';
+            case 5:
+                return 'url("./static/images/dry_grass6.png")';
+            case 6:
+                return 'url("./static/images/dry_grass7.png")';
+        }
     }
 }
 
 class Hey extends Tile {
+    variants = 6;
+    variant;
     constructor(x, y, temperature, humidity, height, biome) {
         super(x, y, temperature, humidity, height, biome);
+        this.variant = Math.floor(Math.random() * this.variants);
     }
     render() {
-        return 'url("./static/images/hey.png"), url("./static/images/dry_grass.png")';
+        switch(this.variant) {
+            case 0:
+                return 'url("./static/images/hey.png"), url("./static/images/dry_grass.png")';
+            case 1:
+                return 'url("./static/images/hey.png"), url("./static/images/dry_grass2.png")';
+            case 2:
+                return 'url("./static/images/hey.png"), url("./static/images/dry_grass3.png")';
+            case 3:
+                return 'url("./static/images/hey.png"), url("./static/images/dry_grass4.png")';
+            case 4:
+                return 'url("./static/images/hey.png"), url("./static/images/dry_grass5.png")';
+            case 5:
+                return 'url("./static/images/hey.png"), url("./static/images/dry_grass6.png")';
+            case 6:
+                return 'url("./static/images/hey.png"), url("./static/images/dry_grass7.png")';
+        }
     }
 }
