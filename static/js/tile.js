@@ -28,7 +28,7 @@ class Tree extends Tile {
         alert('you got one log');
     }
     render() {
-        return 'url("../static/images/tree.png"), url("../static/images/grass.png")';
+        return 'url("./static/images/tree.png"), url("./static/images/grass.png")';
     }
 }
 
@@ -38,7 +38,7 @@ class Grass extends Tile {
         super(x, y, temperature, humidity, height, biome);
     }
     render() {
-        return 'url("../static/images/grass.png")';
+        return 'url("./static/images/grass.png")';
     }
 }
 
@@ -49,7 +49,7 @@ class Ocean extends Tile {
         super(x, y, temperature, humidity, height, biome);
     }
     render() {
-        return 'url("../static/images/ocean.png")';
+        return 'url("./static/images/ocean.png")';
     }
 }
 
@@ -59,7 +59,7 @@ class Sand extends Tile {
         super(x, y, temperature, humidity, height, biome);
     }
     render() {
-        return 'url("../static/images/sand.png")';
+        return 'url("./static/images/sand.png")';
     }
 }
 
@@ -70,7 +70,7 @@ class Cactus extends Tile {
         super(x, y, temperature, humidity, height, biome);
     }
     render() {
-        return 'url("../static/images/cactus.png"), url("../static/images/sand.png")';
+        return 'url("./static/images/cactus.png"), url("./static/images/sand.png")';
     }
 }
 
@@ -93,24 +93,24 @@ class Stone extends Tile {
         let texture = '';
         switch(this.flowerVariant) {
             case 1:
-                texture += 'url("../static/images/stone_flower1.png"), ';
+                texture += 'url("./static/images/stone_flower1.png"), ';
                 break;
             case 2:
-                texture += 'url("../static/images/stone_flower2.png"), ';
+                texture += 'url("./static/images/stone_flower2.png"), ';
                 break;
         }
         switch(this.stoneVariant) {
             case 0:
-                texture += 'url("../static/images/stone.png")';
+                texture += 'url("./static/images/stone.png")';
                 break;
             case 1:
-                texture += 'url("../static/images/stone2.png")';
+                texture += 'url("./static/images/stone2.png")';
                 break;
             case 2:
-                texture += 'url("../static/images/stone3.png")';
+                texture += 'url("./static/images/stone3.png")';
                 break;
             case 3:
-                texture += 'url("../static/images/stone4.png")';
+                texture += 'url("./static/images/stone4.png")';
                 break;
         }
         return texture;
@@ -122,7 +122,7 @@ class Stone_sand extends Tile {
         super(x, y, temperature, humidity, height, biome);
     }
     render() {
-        return 'url("../static/images/stone_sand.png")';
+        return 'url("./static/images/stone_sand.png")';
     }
 }
 
@@ -131,7 +131,7 @@ class Tall_grass extends Tile {
         super(x, y, temperature, humidity, height, biome);
     }
     render() {
-        return 'url("../static/images/tall_grass.png"), url("../static/images/grass.png")';
+        return 'url("./static/images/tall_grass.png"), url("./static/images/grass.png")';
     }
 }
 
@@ -140,7 +140,7 @@ class Dry_grass extends Tile {
         super(x, y, temperature, humidity, height, biome);
     }
     render() {
-        return 'url("../static/images/dry_grass.png")';
+        return 'url("./static/images/dry_grass.png")';
     }
 }
 
@@ -149,6 +149,6 @@ class Hey extends Tile {
         super(x, y, temperature, humidity, height, biome);
     }
     render() {
-        return 'url("../static/images/hey.png"), url("../static/images/dry_grass.png")';
+        return 'url("./static/images/hey.png"), url("./static/images/dry_grass.png")';
     }
 }
