@@ -1,0 +1,57 @@
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(9, 64px);
+    grid-template-rows: repeat(9, 64px);
+}
+
+.grid div {
+    width: 64px;
+    height: 64px;
+    background-size: 100%, 100%;
+    /* shit to render the images */
+    background-size: cover; /* Ensures the image covers the entire div */
+    background-repeat: no-repeat; /* Prevents tiling */
+    background-position: center; /* Centers the image */
+    image-rendering: pixelated; /* Ensures sharp edges for pixel art */
+    image-rendering: crisp-edges; /* Ensures sharp edges for pixel art */
+}
+
+@keyframes rain-fall {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 0 50px;
+    }
+}
+
+.grid div.rain::before {
+    content: '';
+    display: block;
+    width: 64px;
+    height: 64px;
+    background-size: 100%, 100%;
+    background-image: url('../images/rain.png');
+    /* shit to render the images */
+    background-size: cover; /* Ensures the image covers the entire div */
+    background-position: center; /* Centers the image */
+    image-rendering: pixelated; /* Ensures sharp edges for pixel art */
+    image-rendering: crisp-edges; /* Ensures sharp edges for pixel art */
+    animation: rain-fall 1s linear infinite;
+}
+
+#debug {
+    display: none;
+}
+
+#map {
+    display: hidden;
+}
