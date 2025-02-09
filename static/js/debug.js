@@ -72,6 +72,7 @@ function enableMap() {
         ctx = map.getContext('2d');
         map.width = mapWidth;
         map.height = mapHeight;
+        map.addEventListener('click', event => mapButtonClick(event));
     }
     map.style.display = 'block';
     drawMap();
@@ -149,4 +150,13 @@ function inputYchange() {
     }
     playerY = inputY.value;
     render();
+}
+
+function  mapButtonClick(event) {
+    const rect = map.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+    playerX = Math.floor(x);
+    playerY = Math.floor(y);
+    update();
 }

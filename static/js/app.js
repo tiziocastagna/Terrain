@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // TODO: remove before shipping
     enableDebug();
     enableMap();
-
+    
     const gridContainer = document.getElementById('game_grid');
     setUpWorld(gridContainer);
 });
