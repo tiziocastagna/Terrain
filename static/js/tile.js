@@ -80,14 +80,14 @@ class Stone extends Tile {
     constructor(x, y, temperature, humidity, height, biome) {
         super(x, y, temperature, humidity, height, biome);
         const rand = Math.random();
-        if(rand < 0.6) {
-            this.stoneVariant = 0;
-        } else if(rand < 0.8) {
-            this.stoneVariant = 1;
+        this.stoneVariant = Math.floor(Math.random() * this.stoneVariants);
+        if(rand < 0.05) {
+            this.flowerVariant = 1;
+        } else if(rand < 0.1) {
+            this.flowerVariant = 2;
         } else {
-            this.stoneVariant = 2;
+            this.flowerVariant = 0;
         }
-        this.flowerVariant = Math.floor(Math.random() * this.flowerVariants);
     }
     render() {
         let texture = '';
@@ -195,6 +195,7 @@ class Rock extends Tile {
     variant;
     stoneVariants = 4;
     stoneVariant;
+    walkable = false;
     constructor(x, y, temperature, humidity, height, biome) {
         super(x, y, temperature, humidity, height, biome);
         this.variant = Math.floor(Math.random() * this.variants);
@@ -205,8 +206,10 @@ class Rock extends Tile {
         switch(this.variant) {
             case 0:
                 texture += 'url("./static/images/rock.png"), ';
+                break;
             case 1:
                 texture += 'url("./static/images/rock2.png"), ';
+                break;
         }
         switch(this.stoneVariant) {
             case 0:
