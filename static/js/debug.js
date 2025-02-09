@@ -24,10 +24,10 @@ function temperatureButtonClick() {
         showTemperature = false;
     } else {
         showTemperature = true;
-        if(showMap) {
-            render();
-            drawMap();
-        }
+    }
+    if(showMap) {
+        render();
+        drawMap();
     }
 }
 
@@ -38,10 +38,10 @@ function humidityButtonClick() {
         showHumidity = false;
     } else {
         showHumidity = true;
-        if(showMap) {
-            render();
-            drawMap();
-        }
+    }
+    if(showMap) {
+        render();
+        drawMap();
     }
 }
 
@@ -52,11 +52,12 @@ function heightButtonClick() {
         showHeight = false;
     } else {
         showHeight = true;
-        if(showHeight) {
-            render();
-            drawMap();
-        }
-    }}
+    }
+    if(showMap) {
+        render();
+        drawMap();
+    }
+}
 
 function noClipButtonClick() {
     noClip ? noClip = false : noClip = true;
@@ -72,7 +73,7 @@ function enableMap() {
         ctx = map.getContext('2d');
         map.width = mapWidth;
         map.height = mapHeight;
-        map.addEventListener('click', event => mapButtonClick(event));
+        map.addEventListener('click', event => mapClick(event));
     }
     map.style.display = 'block';
     drawMap();
@@ -104,6 +105,7 @@ function biomeToColor(biome) {
 }
 
 function getMapPixelColor(x, y) {
+    const tile = getTile(y, x);
     if(showTemperature) {
         const gray = (tile.temperature + 1) * 255 / 2;
         return [gray, gray, gray, 255];
@@ -116,7 +118,6 @@ function getMapPixelColor(x, y) {
     } else if(Math.abs(y - playerX) < 5 && Math.abs(x - playerY) < 5) {
         return[255, 0, 0, 255];
     } else {
-        const tile = getTile(y, x);
         const biome = tile.biome;
         return biomeToColor(biome);
     }
@@ -139,7 +140,7 @@ function drawMap() {
     ctx.putImageData(imageData, 0, 0);
 }
 
-function  mapButtonClick(event) {
+function  mapClick(event) {
     const rect = map.getBoundingClientRect();
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
