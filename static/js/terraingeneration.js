@@ -66,6 +66,9 @@ function generateTile(x, y) {
             }
             return new Sand(x, y, temperature, humidity, height, 'desert');
         case 'mountain':
+            if(rand < 0.05) {
+                return new Rock(x, y, temperature, humidity, height, 'mountain');
+            }
             return new Stone(x, y, temperature, humidity, height, 'mountain');
         case 'desert-mountain':
             return new Stone_sand(x, y, temperature, humidity, height, 'desert-mountain');

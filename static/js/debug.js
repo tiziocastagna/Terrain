@@ -103,29 +103,32 @@ function biomeToColor(biome) {
     }
 }
 
+function getMapPixelColor(x, y) {
+    if(showTemperature) {
+        const gray = (tile.temperature + 1) * 255 / 2;
+        return [gray, gray, gray, 255];
+    } else if(showHumidity) {
+        const gray = (tile.humidity + 1) * 255 / 2;
+        return [gray, gray, gray, 255];
+    } else if(showHeight) {
+        const gray = (tile.height + 1) * 255 / 2;
+        return[gray, gray, gray, 255];
+    } else if(Math.abs(y - playerX) < 5 && Math.abs(x - playerY) < 5) {
+        return[255, 0, 0, 255];
+    } else {
+        const tile = getTile(y, x);
+        const biome = tile.biome;
+        return biomeToColor(biome);
+    }
+}
+
 function drawMap() {
     const imageData = ctx.getImageData(0, 0, mapWidth, mapHeight);
     const pixels = imageData.data;
     let globalIndex = 0;
     for(let i = 0; i < mapHeight; i++) {
         for(let j = 0; j < mapWidth; j++) {
-            const tile = getTile(j, i);
-            let color;
-            if(showTemperature) {
-                const gray = (tile.temperature + 1) * 255 / 2;
-                color = [gray, gray, gray, 255];
-            } else if(showHumidity) {
-                const gray = (tile.humidity + 1) * 255 / 2;
-                color = [gray, gray, gray, 255];
-            } else if(showHeight) {
-                const gray = (tile.height + 1) * 255 / 2;
-                color = [gray, gray, gray, 255];
-            } else if(Math.abs(j - playerX) < 5 && Math.abs(i - playerY) < 5) {
-                color = [255, 0, 0, 255];
-            } else {
-                const biome = tile.biome;
-                color = biomeToColor(biome);
-            }
+            const color = getMapPixelColor(i, j);
             pixels[globalIndex * 4] = color[0];
             pixels[globalIndex * 4 + 1] = color[1];
             pixels[globalIndex * 4 + 2] = color[2];
@@ -136,27 +139,60 @@ function drawMap() {
     ctx.putImageData(imageData, 0, 0);
 }
 
-function inputXchange() {
-    if(!inputX) {
-        inputX = document.getElementById("inputX");
-    }
-    playerX = inputX.value;
-    render();
-}
-
-function inputYchange() {
-    if(!inputY) {
-        inputY = document.getElementById("inputY");
-    }
-    playerY = inputY.value;
-    render();
-}
-
 function  mapButtonClick(event) {
     const rect = map.getBoundingClientRect();
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
-    playerX = Math.floor(x);
-    playerY = Math.floor(y);
+    tp(playerX, playerY, Math.floor(x), Math.floor(y));
     update();
+}
+
+function updateMapPartial(x, y, radius) {
+    const imageData = ctx.getImageData(0, 0, mapWidth, mapHeight);
+    const pixels = imageData.data;
+    const leftSide = Math.max(x - radius, 0);
+    const rightSide = Math.min(x + radius, mapWidth);
+    const topSide = Math.max(y - radius, 0);
+    const bottomSide = Math.min(y + radius, mapHeight);
+    for(let i = topSide; i < bottomSide; i++) {
+        for(let j = leftSide; j < rightSide; j++) {
+            const color = getMapPixelColor(i, j);
+            const index = i * mapWidth + j;
+            pixels[index * 4] = color[0];
+            pixels[index * 4 + 1] = color[1];
+            pixels[index * 4 + 2] = color[2];
+            pixels[index * 4 + 3] = color[3];
+        }
+    }
+    ctx.putImageData(imageData, 0, 0);
+}
+
+// takes new position
+// TODO: could be more efficent, but, on the other hand, it is a fucking debug toll
+function simpleMoveMapUpdate(x, y) {
+    updateMapPartial(x, y, 6);
+}
+
+// teleport player from px, py to x, y
+function tp(px, py, x, y) {
+    playerX = x;
+    playerY = y;
+    update();
+
+    // only debug-mode
+    if(showMap) {
+        updateMapPartial(px, py, 5);
+        updateMapPartial(x, y, 5);
+    }
+}
+
+function teleportButtonClick() {
+    if(!inputX) {
+        inputX = document.getElementById("inputX");
+    }
+    if(!inputY) {
+        inputY = document.getElementById("inputY");
+    }
+    tp(playerX, playerY, parseInt(inputX.value || 0), parseInt(inputY.value || 0));
+    render();
 }

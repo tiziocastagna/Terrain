@@ -45,4 +45,9 @@ function render() {
             visualSquare.style.backgroundImage = square.render();
         }
     }
+
+    // the indicator on the map must change position
+    if(showMap) {
+        simpleMoveMapUpdate(playerX, playerY);
+    }
 }

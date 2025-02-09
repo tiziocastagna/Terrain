@@ -21,8 +21,11 @@
         <button id="height", onclick=heightButtonClick()>Height</button>
         <button id="noClip", onclick=noClipButtonClick()>No-clip</button>
         <button id="mapButton", onclick=mapButtonClick()>Map</button>
-        <input id="inputX", onchange=inputXchange() placeholder="x">
-        <input id="inputY", onchange=inputYchange() placeholder="y">
+        <div>
+            <input id="inputX" placeholder="x">
+            <input id="inputY" placeholder="y">
+            <button id="teleport", onclick=teleportButtonClick()>Teleport</button>
+        </div>
     </div>
     <canvas id="map"></canvas>
 </body>

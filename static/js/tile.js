@@ -189,3 +189,39 @@ class Hey extends Tile {
         }
     }
 }
+
+class Rock extends Tile {
+    variants = 2;
+    variant;
+    stoneVariants = 4;
+    stoneVariant;
+    constructor(x, y, temperature, humidity, height, biome) {
+        super(x, y, temperature, humidity, height, biome);
+        this.variant = Math.floor(Math.random() * this.variants);
+        this.stoneVariant = Math.floor(Math.random() * this.stoneVariants);
+    }
+    render() {
+        let texture = '';
+        switch(this.variant) {
+            case 0:
+                texture += 'url("./static/images/rock.png"), ';
+            case 1:
+                texture += 'url("./static/images/rock2.png"), ';
+        }
+        switch(this.stoneVariant) {
+            case 0:
+                texture += 'url("./static/images/stone.png")';
+                break;
+            case 1:
+                texture += 'url("./static/images/stone2.png")';
+                break;
+            case 2:
+                texture += 'url("./static/images/stone3.png")';
+                break;
+            case 3:
+                texture += 'url("./static/images/stone4.png")';
+                break;
+        }
+        return texture;
+    }
+}
